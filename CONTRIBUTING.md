@@ -30,9 +30,8 @@ Your `SKILL.md` file must include YAML frontmatter and detailed instructions:
 
 ```markdown
 ---
-name: my-skill
+name: qodo-my-skill
 description: "Brief description (1-2 sentences) for skill discovery"
-version: 1.0.0
 allowed-tools: ["Bash", "Read", "Edit", "Write"]
 triggers:
   - keyword1
@@ -78,14 +77,27 @@ Example usage scenarios...
 
 ## YAML Frontmatter Fields
 
+### Naming Convention
+
+**All skills must use the `qodo-*` prefix:**
+
+```
+qodo-get-rules      ✅
+qodo-pr-resolver    ✅
+my-skill            ❌  (missing prefix)
+get-rules           ❌  (missing prefix)
+```
+
+This makes skills discoverable and prevents collisions with other skill collections.
+
 ### Required Fields
 
-- **name**: Unique identifier (lowercase, hyphens only)
+- **name**: Unique identifier using `qodo-*` prefix (lowercase, hyphens only)
 - **description**: Brief description for skill discovery (1-2 sentences)
 
 ### Optional Fields
 
-- **version**: Semantic version (e.g., "1.0.0")
+- **version**: Do not include — versions are tracked via git, not SKILL.md
 - **allowed-tools**: Array of tool names the skill can use
   - Common tools: `["Bash", "Read", "Edit", "Write", "Grep", "Glob", "WebFetch", "WebSearch"]`
   - Use to restrict tool access for security

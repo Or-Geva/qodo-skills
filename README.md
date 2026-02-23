@@ -6,7 +6,7 @@ Shift-left code review skills for AI coding agents. Bring Qodo's quality standar
 
 ## Available Skills
 
-### 🔧 get-qodo-rules
+### 🔧 qodo-get-rules
 Fetches repository-specific coding rules from the Qodo platform API. Provides your agent with security requirements, coding standards, and team conventions before generating code.
 
 **Features:**
@@ -17,7 +17,7 @@ Fetches repository-specific coding rules from the Qodo platform API. Provides yo
 - 📄 Pagination support for large rule sets
 - 🪟 **Full Windows support** - Native compatibility without requiring Git Bash/WSL
 
-[View skill details](./skills/get-qodo-rules/SKILL.md)
+[View skill details](./skills/qodo-get-rules/SKILL.md)
 
 ### 🔍 qodo-pr-resolver
 Fetch Qodo review issues for your current branch's PR/MR, fix them interactively or in batch, and reply to each inline comment with the decision.
@@ -40,7 +40,7 @@ Install skills using the standard Agent Skills CLI:
 npx skills add qodo-ai/qodo-skills
 
 # Or install individual skills
-npx skills add qodo-ai/qodo-skills/skills/get-qodo-rules
+npx skills add qodo-ai/qodo-skills/skills/qodo-get-rules
 npx skills add qodo-ai/qodo-skills/skills/qodo-pr-resolver
 ```
 
@@ -50,7 +50,7 @@ npx skills add qodo-ai/qodo-skills/skills/qodo-pr-resolver
 ```
 
 **Works with:**
-- **Claude Code** - Skills available as `/get-qodo-rules`, `/qodo-pr-resolver`
+- **Claude Code** - Skills available as `/qodo-get-rules`, `/qodo-pr-resolver`
 - **Cursor** - Skills available in command palette
 - **Windsurf** - Skills available in flow menu
 - **Cline** - Skills available via skill invocation
@@ -94,7 +94,7 @@ Skills are automatically installed to the correct location for your agent:
 
 ## Configuration
 
-### get-qodo-rules Skill
+### qodo-get-rules Skill
 
 Create `~/.qodo/config.json`:
 
@@ -143,13 +143,13 @@ After installation, invoke skills directly in your agent:
 
 **Claude Code:**
 ```bash
-/get-qodo-rules      # Fetch coding rules
+/qodo-get-rules      # Fetch coding rules
 /qodo-pr-resolver    # Fix PR review issues
 ```
 
 **Cursor / Windsurf / Cline:**
 - Open command palette
-- Search for "get-qodo-rules" or "qodo-pr-resolver"
+- Search for "qodo-get-rules" or "qodo-pr-resolver"
 - Or invoke via agent command input
 
 ### Managing Skills
@@ -157,7 +157,7 @@ After installation, invoke skills directly in your agent:
 **Update skills:**
 ```bash
 # Update individual skills
-npx skills update qodo-ai/qodo-skills/skills/get-qodo-rules
+npx skills update qodo-ai/qodo-skills/skills/qodo-get-rules
 npx skills update qodo-ai/qodo-skills/skills/qodo-pr-resolver
 ```
 
@@ -168,7 +168,7 @@ npx skills list
 
 **Remove skills:**
 ```bash
-npx skills remove get-qodo-rules
+npx skills remove qodo-get-rules
 ```
 
 ## Repository Structure
@@ -178,7 +178,7 @@ This repository follows the [Agent Skills](https://agentskills.io) standard:
 ```
 qodo-skills/
 ├── skills/
-│   ├── get-qodo-rules/           # Fetch coding rules skill
+│   ├── qodo-get-rules/           # Fetch coding rules skill
 │   │   ├── SKILL.md         # Agent Skills standard
 │   │   └── scripts/
 │   │       ├── fetch-qodo-rules.py   # Main script (cross-platform)
@@ -238,7 +238,7 @@ python3 --version || python --version
 **Manually test the fetch script:**
 ```bash
 # Navigate to your agent's skills directory and run the Python script directly
-cd ~/.claude/skills/get-qodo-rules  # or ~/.cursor/skills/get-qodo-rules, etc.
+cd ~/.claude/skills/qodo-get-rules  # or ~/.cursor/skills/qodo-get-rules, etc.
 python3 scripts/fetch-qodo-rules.py
 
 # Or use the shell wrapper (Unix/macOS/Linux):
