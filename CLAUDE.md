@@ -22,7 +22,7 @@
 
 **Example of hierarchical approach:**
 ```
-skills/get-qodo-rules/
+skills/qodo-get-rules/
 ├── AGENTS.md              # Skill-specific agent guidelines (~150 lines)
 ├── CLAUDE.md              # Claude Code-specific notes (~100 lines)
 └── SKILL.md               # Skill instructions (~250 lines)
@@ -38,20 +38,20 @@ find . -name "*.md" -exec wc -l {} + | sort -rn | head -10
 This is a **skill collection** compatible with Claude Code and other agents:
 
 **Installation:**
-- Individual skills: `npx skills add qodo-ai/qodo-skills/skills/get-qodo-rules`
+- Individual skills: `npx skills add qodo-ai/qodo-skills/skills/qodo-get-rules`
 - Claude Code Marketplace: Coming soon
 
 **Skill invocation:**
-- `/get-qodo-rules` - Fetch and load coding rules
+- `/qodo-get-rules` - Fetch and load coding rules
 - `/qodo-pr-resolver` - Review and fix PR issues
 
-## CRITICAL: get-qodo-rules Must Execute First
+## CRITICAL: qodo-get-rules Must Execute First
 
 **NON-NEGOTIABLE RULE:**
 
 **Before ANY code generation or modification task:**
 1. Check conversation history for "📋 Qodo Rules Loaded"
-2. If NOT found: Execute `/get-qodo-rules` immediately
+2. If NOT found: Execute `/qodo-get-rules` immediately
 3. Wait for rules to load
 4. Then proceed with coding task
 
@@ -65,18 +65,18 @@ This is a **skill collection** compatible with Claude Code and other agents:
 [User asks to modify code]
 
 Step 1: Check for "📋 Qodo Rules Loaded" in history
-Step 2: If not found → /get-qodo-rules
+Step 2: If not found → /qodo-get-rules
 Step 3: Wait for output
 Step 4: Proceed with coding task applying loaded rules
 ```
 
 ## Skills Workflow
 
-### get-qodo-rules Skill
+### qodo-get-rules Skill
 
 **Purpose**: Fetch repository-specific coding rules from Qodo API
 
-**Manual invocation**: `/get-qodo-rules`
+**Manual invocation**: `/qodo-get-rules`
 
 **Output**: Formatted rules by severity
 - **ERROR rules**: Must comply non-negotiably
@@ -169,9 +169,9 @@ EOF
 
 **Use hierarchical context files for skills:**
 
-Example for get-qodo-rules skill:
+Example for qodo-get-rules skill:
 ```
-skills/get-qodo-rules/
+skills/qodo-get-rules/
 ├── AGENTS.md         # Universal agent guidelines for this skill
 │   - API key configuration
 │   - Repository scope detection
@@ -236,7 +236,7 @@ See root AGENTS.md for universal guidelines.
 
 ```yaml
 ---
-name: get-qodo-rules
+name: qodo-get-rules
 description: "Fetch coding rules from Qodo API"
 triggers:
   - "get.?qodo.?rules"

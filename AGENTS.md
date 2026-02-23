@@ -15,7 +15,7 @@ qodo-skills/
 ├── AGENTS.md                    # This file - universal guidelines
 ├── CLAUDE.md                    # Claude Code-specific directives
 ├── skills/                      # Agent Skills catalog
-│   ├── get-qodo-rules/         # Fetch Qodo coding rules
+│   ├── qodo-get-rules/         # Fetch Qodo coding rules
 │   │   ├── SKILL.md            # Skill specification
 │   │   ├── AGENTS.md           # Skill-specific guidelines
 │   │   └── scripts/            # Helper scripts
@@ -52,7 +52,7 @@ qodo-skills/
 project/
 ├── AGENTS.md                    # Root guidelines (~200 lines)
 ├── skills/
-│   ├── get-qodo-rules/
+│   ├── qodo-get-rules/
 │   │   ├── AGENTS.md           # Skill-specific context (~150 lines)
 │   │   └── SKILL.md            # Skill instructions (~250 lines)
 │   └── qodo-pr-resolver/
@@ -68,12 +68,11 @@ Every skill requires a SKILL.md file with YAML frontmatter:
 
 ```markdown
 ---
-name: my-skill
+name: qodo-my-skill
 description: "Brief description (1-2 sentences) for skill discovery"
-version: 1.0.0
 allowed-tools: ["Bash", "Read", "Edit", "Write"]
 triggers:
-  - "my.?skill"
+  - "qodo.?my.?skill"
   - "invoke.my.skill"
 ---
 
@@ -95,10 +94,21 @@ triggers:
 [Common issues and solutions]
 ```
 
+### Skill Naming Convention
+
+**All skills must follow the `qodo-*` prefix pattern:**
+
+- `qodo-get-rules` ✅
+- `qodo-pr-resolver` ✅
+- `get-qodo-rules` ❌ (old pattern, do not use)
+- `my-skill` ❌ (missing prefix)
+
+This makes skills identifiable at a glance and prevents naming collisions with other skill collections.
+
 ### YAML Frontmatter Fields
 
 **Required:**
-- `name`: Unique identifier (lowercase, hyphens only)
+- `name`: Unique identifier using `qodo-*` prefix (lowercase, hyphens only)
 - `description`: Brief description for discovery (1-2 sentences)
 
 **Optional but STRONGLY RECOMMENDED:**
@@ -111,7 +121,7 @@ triggers:
   - Common: `["Bash", "Read", "Edit", "Write", "Grep", "Glob"]`
   - Advanced: `["WebFetch", "WebSearch", "Task"]`
 
-- `version`: Semantic version (e.g., "1.0.0")
+- `version`: Semantic version — **omit this field** (versions are managed via git, not SKILL.md)
 
 ### Instruction Writing Standards
 
@@ -270,7 +280,7 @@ python3 -m pytest tests/
 **Installation:**
 ```bash
 # Install skill locally
-npx skills add /path/to/qodo-skills/skills/get-qodo-rules
+npx skills add /path/to/qodo-skills/skills/qodo-get-rules
 
 # Claude Code marketplace: Coming soon
 ```
@@ -278,7 +288,7 @@ npx skills add /path/to/qodo-skills/skills/get-qodo-rules
 **Testing:**
 ```bash
 # Invoke skill manually
-/get-qodo-rules
+/qodo-get-rules
 /qodo-pr-resolver
 
 # Check git status
