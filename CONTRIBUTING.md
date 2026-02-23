@@ -171,7 +171,7 @@ git commit -m "Brief description of changes"
 
 If your skill calls Qodo API endpoints, all requests must include attribution headers to identify the caller and correlate requests.
 
-See [attribution guidelines](../skills/get-qodo-rules/references/attribution.md) for required headers (`Authorization`, `request-id`, `qodo-client-type`) and optional headers (`trace_id`), with implementation examples in bash and Python.
+See [attribution guidelines](skills/qodo-get-rules/references/attribution.md) for required headers (`Authorization`, `request-id`, `qodo-client-type`) and optional headers (`trace_id`), with implementation examples in bash and Python.
 
 ## Helper Scripts
 
