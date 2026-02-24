@@ -21,7 +21,7 @@ All HTTP requests to Qodo API endpoints must include attribution headers so the 
 1. **`request-id`**: Generate a UUID once at the start of each skill invocation (e.g. `uuidgen` or `python3 -c "import uuid; print(uuid.uuid4())"`). Use the **same value on every page fetch** for that invocation — this correlates all page fetches for a single skill run on the platform side.
 
 2. **`qodo-client-type`**: Use the format `skill-{skill-name}` where `skill-name` matches the skill's identifier. For example:
-   - `get-qodo-rules` skill → `qodo-client-type: skill-get-qodo-rules`
+   - `qodo-get-rules` skill → `qodo-client-type: skill-qodo-get-rules`
    - A new `my-skill` skill → `qodo-client-type: skill-my-skill`
 
 3. **`trace_id`**: Read from the `TRACE_ID` shell environment variable. If not set, omit the header entirely — do not send an empty value.
@@ -32,7 +32,7 @@ All HTTP requests to Qodo API endpoints must include attribution headers so the 
 curl -s \
   -H "Authorization: Bearer ${API_KEY}" \
   -H "request-id: ${REQUEST_ID}" \
-  -H "qodo-client-type: skill-get-qodo-rules" \
+  -H "qodo-client-type: skill-qodo-get-rules" \
   "${API_URL}/rules?scopes=${ENCODED_SCOPE}&state=active&page=1&page_size=50"
 ```
 
@@ -47,7 +47,7 @@ fi
 curl -s \
   -H "Authorization: Bearer ${API_KEY}" \
   -H "request-id: ${REQUEST_ID}" \
-  -H "qodo-client-type: skill-get-qodo-rules" \
+  -H "qodo-client-type: skill-qodo-get-rules" \
   ${TRACE_HEADER} \
   "${API_URL}/rules?..."
 ```
@@ -58,7 +58,7 @@ curl -s \
 headers = {
     "Authorization": f"Bearer {api_key}",
     "request-id": request_id,
-    "qodo-client-type": "skill-get-qodo-rules",
+    "qodo-client-type": "skill-qodo-get-rules",
 }
 if trace_id := os.environ.get("TRACE_ID"):
     headers["trace_id"] = trace_id
