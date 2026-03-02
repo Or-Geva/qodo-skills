@@ -34,7 +34,10 @@ Plans:
   2. Closing a PR without merging does not trigger the workflow
   3. Merging a PR that touches only non-`skills/` files (e.g., README) causes the workflow to run but exit without posting any notification
   4. The changed-files action reference in the workflow YAML uses a full commit SHA, not a version tag
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 02-01-PLAN.md — Create notify-skill-changes workflow YAML and verify trigger/detection behavior (TRIG-01, TRIG-02, DETECT-01, DETECT-02, DETECT-03)
 
 ### Phase 3: Slack Notification
 **Goal**: A Slack message appears in `#qodo-skills-releases` every time a skill-touching PR merges to main, containing all required information in Block Kit format
@@ -56,5 +59,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. External Setup | 1/1 | Complete   | 2026-03-02 |
-| 2. Workflow Core | 0/? | Not started | - |
+| 2. Workflow Core | 0/1 | Planned | - |
 | 3. Slack Notification | 0/? | Not started | - |
