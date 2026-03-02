@@ -7,9 +7,9 @@
 
 ### Setup (External Prerequisites)
 
-- [ ] **SETUP-01**: `#qodo-skills-releases` Slack channel is created in the workspace
-- [ ] **SETUP-02**: A Slack app with incoming webhook scoped to `#qodo-skills-releases` is created
-- [ ] **SETUP-03**: Webhook URL is stored as `SLACK_WEBHOOK_URL` in GitHub Actions repository secrets
+- [x] **SETUP-01**: `#qodo-skills-releases` Slack channel is created in the workspace
+- [x] **SETUP-02**: A Slack app with incoming webhook scoped to `#qodo-skills-releases` is created
+- [x] **SETUP-03**: Webhook URL is stored as `SLACK_WEBHOOK_SKILLS_RELEASES_URL` in GitHub Actions repository secrets
 
 ### Workflow Trigger
 
@@ -58,9 +58,9 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SETUP-01 | Phase 1 | Pending |
-| SETUP-02 | Phase 1 | Pending |
-| SETUP-03 | Phase 1 | Pending |
+| SETUP-01 | Phase 1 | Complete |
+| SETUP-02 | Phase 1 | Complete |
+| SETUP-03 | Phase 1 | Complete |
 | TRIG-01 | Phase 2 | Pending |
 | TRIG-02 | Phase 2 | Pending |
 | DETECT-01 | Phase 2 | Pending |
@@ -80,4 +80,4 @@
 
 ---
 *Requirements defined: 2026-03-02*
-*Last updated: 2026-03-02 after initial definition*
+*Last updated: 2026-03-02 after Phase 1 completion (secret name corrected to SLACK_WEBHOOK_SKILLS_RELEASES_URL)*

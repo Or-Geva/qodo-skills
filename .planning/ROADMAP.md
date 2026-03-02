@@ -6,7 +6,7 @@ A three-phase delivery: first establish the external prerequisites (Slack channe
 
 ## Phases
 
-- [ ] **Phase 1: External Setup** - Create the Slack channel, configure the incoming webhook app, and store the secret in GitHub
+- [x] **Phase 1: External Setup** - Create the Slack channel, configure the incoming webhook app, and store the secret in GitHub
 - [ ] **Phase 2: Workflow Core** - Implement the GitHub Actions workflow with correct trigger, checkout, skill-change detection, and non-skill suppression
 - [ ] **Phase 3: Slack Notification** - Assemble and deliver the Block Kit message with PR title, author, link, and changed skill names
 
@@ -19,11 +19,11 @@ A three-phase delivery: first establish the external prerequisites (Slack channe
 **Success Criteria** (what must be TRUE):
   1. `#qodo-skills-releases` channel exists in the Slack workspace and accepts messages
   2. A Slack app with an incoming webhook scoped to `#qodo-skills-releases` exists and its URL produces a 200 response when called
-  3. `SLACK_WEBHOOK_URL` appears as a repository secret in GitHub Actions settings (value is masked)
+  3. `SLACK_WEBHOOK_SKILLS_RELEASES_URL` appears as a repository secret in GitHub Actions settings (value is masked)
 **Plans**: 1 plan
 
 Plans:
-- [ ] 01-01-PLAN.md — Create Slack channel, app webhook, and GitHub secret (SETUP-01, SETUP-02, SETUP-03)
+- [x] 01-01-PLAN.md — Create Slack channel, app webhook, and GitHub secret (SETUP-01, SETUP-02, SETUP-03)
 
 ### Phase 2: Workflow Core
 **Goal**: A GitHub Actions workflow fires only on PR merge to main, detects which skills changed, and produces no output for non-skill PRs
@@ -55,6 +55,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. External Setup | 0/1 | Ready to execute | - |
+| 1. External Setup | 1/1 | Complete | 2026-03-02 |
 | 2. Workflow Core | 0/? | Not started | - |
 | 3. Slack Notification | 0/? | Not started | - |
