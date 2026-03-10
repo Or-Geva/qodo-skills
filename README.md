@@ -6,17 +6,18 @@ Shift-left code review skills for AI coding agents. Bring Qodo's quality standar
 
 ## Available Skills
 
-### 🔧 qodo-get-rules
+### 🔧 get-qodo-rules
 Fetches repository-specific coding rules from the Qodo platform API. Provides your agent with security requirements, coding standards, and team conventions before generating code.
 
 **Features:**
+- 🎯 **Must load before coding**: Agent invokes before any code generation/modification task (if not already loaded)
 - 📚 Hierarchical rule matching (universal, org, repo, path-level)
 - ⚖️ Severity-based enforcement (ERROR, WARNING, RECOMMENDATION)
 - 🔄 Module-specific scope detection (`modules/` directories)
 - 📄 Pagination support for large rule sets
 - 🪟 **Full Windows support** - Native compatibility without requiring Git Bash/WSL
 
-[View skill details](./skills/qodo-get-rules/SKILL.md)
+[View skill details](./skills/get-qodo-rules/SKILL.md)
 
 ### 🔍 qodo-pr-resolver
 Fetch Qodo review issues for your current branch's PR/MR, fix them interactively or in batch, and reply to each inline comment with the decision.
@@ -39,17 +40,14 @@ Install skills using the standard Agent Skills CLI:
 npx skills add qodo-ai/qodo-skills
 
 # Or install individual skills
-npx skills add qodo-ai/qodo-skills/skills/qodo-get-rules
+npx skills add qodo-ai/qodo-skills/skills/get-qodo-rules
 npx skills add qodo-ai/qodo-skills/skills/qodo-pr-resolver
 ```
 
-**Claude Code Marketplace:**
-```
-/plugin install qodo-skills@claude-plugins-official
-```
+**Claude Code Marketplace:** Coming soon - one-click installation
 
 **Works with:**
-- **Claude Code** - Skills available as `/qodo-get-rules`, `/qodo-pr-resolver`
+- **Claude Code** - Skills available as `/get-qodo-rules`, `/qodo-pr-resolver`
 - **Cursor** - Skills available in command palette
 - **Windsurf** - Skills available in flow menu
 - **Cline** - Skills available via skill invocation
@@ -73,27 +71,46 @@ Skills are automatically installed to the correct location for your agent:
 - **Git** - For repository detection
   - Usually pre-installed on macOS and most Linux distributions
   - Windows: Download from https://git-scm.com/download/win
-- **curl** - For HTTPS API requests (works with system SSL certificates)
-  - Pre-installed on macOS, most Linux distributions, and Windows 10+
-  - If needed, install via package manager or download from https://curl.se
+- **Python 3.6+** - For API requests and cross-platform compatibility
+  - No external dependencies required (uses standard library only)
   ```bash
   # Check installation
-  curl --version
+  python3 --version
+  # or
+  python --version
 
   # Install if needed:
-  # macOS: brew install curl (or use system curl)
-  # Ubuntu/Debian: apt-get install curl
-  # Windows 10+: Included by default
+  # macOS: brew install python3
+  # Ubuntu/Debian: apt-get install python3
+  # Windows: https://www.python.org/downloads/
+  #   (Make sure to check "Add Python to PATH" during installation)
   ```
-- **Python 3.6+** - For JSON parsing and path manipulation only (no API calls)
-  - Pre-installed on macOS and most Linux distributions
-  - Windows: Download from https://www.python.org/downloads/
 
-**Note:** All prerequisites use standard system tools with no external dependencies.
+**Note:** The script automatically detects Python using:
+- **Windows:** `py -3` → `python3` → `python`
+- **Unix/macOS/Linux:** `python3` → `python`
 
 ## Configuration
 
-### qodo-get-rules Skill
+This repo currently supports **two authentication/configuration models**, depending on the skill you use:
+
+- **OIDC login (recommended for new skills)** via `/qodo-setup` → stores a short-lived `id_token` in `~/.qodo/skill_auth.json`
+- **API key configuration** (used by `get-qodo-rules`) → stores `API_KEY` in `~/.qodo/config.json` (or env vars)
+
+### OIDC Login (qodo-setup / qodo-rules)
+
+Some skills (e.g. `qodo-rules`) authenticate using an OIDC browser login flow. Run the setup skill once:
+
+```bash
+/qodo-setup --login
+```
+
+This writes:
+- `~/.qodo/skill_auth.json` (contains `id_token` + `platform_url`)
+
+If a token expires, these skills will attempt to refresh automatically (via `/qodo-setup --check`, then `--login` if needed).
+
+### API Key (get-qodo-rules Skill)
 
 Create `~/.qodo/config.json`:
 
@@ -110,7 +127,7 @@ Create `~/.qodo/config.json`:
   - If empty/omitted: Uses `https://qodo-platform.qodo.ai/rules/v1/`
   - If specified: Uses `https://qodo-platform.<ENVIRONMENT_NAME>.qodo.ai/rules/v1/`
 
-Get your API key at: https://app.qodo.ai/account/api-keys
+Get your API key at: https://app.qodo.ai/settings/api-keys
 
 **Minimal configuration (production):**
 ```json
@@ -142,13 +159,13 @@ After installation, invoke skills directly in your agent:
 
 **Claude Code:**
 ```bash
-/qodo-get-rules      # Fetch coding rules
+/get-qodo-rules      # Fetch coding rules
 /qodo-pr-resolver    # Fix PR review issues
 ```
 
 **Cursor / Windsurf / Cline:**
 - Open command palette
-- Search for "qodo-get-rules" or "qodo-pr-resolver"
+- Search for "get-qodo-rules" or "qodo-pr-resolver"
 - Or invoke via agent command input
 
 ### Managing Skills
@@ -156,7 +173,7 @@ After installation, invoke skills directly in your agent:
 **Update skills:**
 ```bash
 # Update individual skills
-npx skills update qodo-ai/qodo-skills/skills/qodo-get-rules
+npx skills update qodo-ai/qodo-skills/skills/get-qodo-rules
 npx skills update qodo-ai/qodo-skills/skills/qodo-pr-resolver
 ```
 
@@ -167,7 +184,7 @@ npx skills list
 
 **Remove skills:**
 ```bash
-npx skills remove qodo-get-rules
+npx skills remove get-qodo-rules
 ```
 
 ## Repository Structure
@@ -177,7 +194,7 @@ This repository follows the [Agent Skills](https://agentskills.io) standard:
 ```
 qodo-skills/
 ├── skills/
-│   ├── qodo-get-rules/           # Fetch coding rules skill
+│   ├── get-qodo-rules/           # Fetch coding rules skill
 │   │   ├── SKILL.md         # Agent Skills standard
 │   │   └── scripts/
 │   │       ├── fetch-qodo-rules.py   # Main script (cross-platform)
@@ -237,7 +254,7 @@ python3 --version || python --version
 **Manually test the fetch script:**
 ```bash
 # Navigate to your agent's skills directory and run the Python script directly
-cd ~/.claude/skills/qodo-get-rules  # or ~/.cursor/skills/qodo-get-rules, etc.
+cd ~/.claude/skills/get-qodo-rules  # or ~/.cursor/skills/get-qodo-rules, etc.
 python3 scripts/fetch-qodo-rules.py
 
 # Or use the shell wrapper (Unix/macOS/Linux):
